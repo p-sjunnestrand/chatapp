@@ -24,7 +24,7 @@
   <script src="socket.io/socket.io.js"></script>
   <script>
     if(!localStorage.getItem('userName')){
-      window.location.replace('http://localhost:3000/login');
+      window.location.replace('https://sjunnestrand-chat-app.herokuapp.com/login');
     }
     const socket = io();
 
@@ -51,7 +51,7 @@
       chat.insertAdjacentHTML('beforeend', `<li><div class="${isSameSender(msg)?'userSender': 'otherSender'} message"><div class ="userName">${msg.userName}:</div>${msg.text}</div></li>`)
     })
     document.getElementById('changeNameBtn').addEventListener('click', ()=>{
-      window.location.replace('http://localhost:3000/login');
+      window.location.replace('https://sjunnestrand-chat-app.herokuapp.com/login');
     })
     function isSameSender(msg){
       let sender = msg.userName;

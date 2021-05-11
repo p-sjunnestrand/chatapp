@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
                     document.getElementById('sendNameBtn').addEventListener('click', ()=>{
                       let userName = document.getElementById('nameInput').value
                       if(userName){
-                        fetch('http://localhost:3000/login', {
+                        fetch('https://sjunnestrand-chat-app.herokuapp.com/login', {
                           method: 'post',
                           headers: {
                             'Content-Type': 'application/json'
