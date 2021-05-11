@@ -1,0 +1,70 @@
+<html>
+
+<head>
+  <title>Express</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  <main>
+    <div id="chatWrp">
+      <div id="chatWindow">
+        <ul id="chat"></ul>
+      </div>
+      
+      <form id="form">
+        <input type="text" id="msgInput">
+        <button id="button">Send</button>
+      </form>
+    </div>
+    <div><button id="changeNameBtn">Change name</button></div>
+  </main>
+  
+  
+  <script src="socket.io/socket.io.js"></script>
+  <script>
+    if(!localStorage.getItem('userName')){
+      window.location.replace('http://localhost:3000/login');
+    }
+    const socket = io();
+
+    let form = document.getElementById('form');
+    let msgInput = document.getElementById('msgInput');
+    
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+
+      console.log("send msg");
+
+      if(msgInput.value){
+        socket.emit("chat msg", {text: msgInput.value, userName: localStorage.getItem('userName')});
+        msgInput.value = '';
+      }
+    });
+
+    socket.on("chat msg", msg => {
+      console.log(msg);
+      let chat = document.getElementById('chat');
+      
+
+      chat.insertAdjacentHTML('beforeend', `<li><div class="${isSameSender(msg)?'userSender': 'otherSender'} message"><div class ="userName">${msg.userName}:</div>${msg.text}</div></li>`)
+    })
+    document.getElementById('changeNameBtn').addEventListener('click', ()=>{
+      window.location.replace('http://localhost:3000/login');
+    })
+    function isSameSender(msg){
+      let sender = msg.userName;
+      console.log('sender:', sender);
+      if(sender === localStorage.getItem('userName')){
+        console.log('true');
+        return true;
+      } else {
+        console.log('false');
+        return false;
+      }
+    }
+  </script>
+</body>
+
+</html>
