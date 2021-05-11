@@ -3,7 +3,7 @@ var router = express.Router();
 
 
 
-/* GET home page. */
+/* Login page */
 router.get('/', function(req, res, next) {
   let loginForm = `<link rel="stylesheet" href="/stylesheets/style.css">
                   <main>
